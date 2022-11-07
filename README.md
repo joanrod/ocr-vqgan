@@ -79,7 +79,7 @@ Logs and checkpoints for experiments are saved into a `logs` directory. By defau
 
 ### Download Paper2Fig100k dataset
 
-We train our models using Paper2Fig100k dataset, that can be downloaded [here](https://here). Once downloaded, you will find the following structure:
+We train our models using Paper2Fig100k dataset, that can be downloaded [here](https://zenodo.org/record/7299423#.Y2lv7nbMKUk). Once downloaded, you will find the following structure:
 
 ```
 📂Paper2Fig100k/
@@ -92,7 +92,7 @@ We train our models using Paper2Fig100k dataset, that can be downloaded [here](h
 
 ```
 
-The directory figures contain all images in the dataset, and the train and test .json files define the metadata about each figure (id, captions, etc.). Run the following command to prepare Paper2Figure samples for the OCR-VQGAN training:
+The directory `figures` contain all images in the dataset, and the train and test JSON files define the metadata about each figure (id, captions, etc.). Run the following command to prepare Paper2Figure samples for the OCR-VQGAN training:
 
 ```bash
 python scripts/parse_paper2fig1_img_to_VQGAN.py --path <path_Paper2Fig100k_root>
@@ -225,7 +225,7 @@ python generate_qualitative_results.py --test_dataset dir_original__samples\
 
 
 ### Results and models
-We provide quantitative and qualitative results of our model, and links to download. Config files in yaml format are available at `configs`. The model is defined by `f`, the downsampling factor, `Z`, the discrete codebook size, and `d`, the model embedding size.
+We provide quantitative and qualitative results of our model, and [links to download](https://zenodo.org/record/7299220#.Y2kr0XbMKUk). Config files in yaml format are available at `configs`. The model is defined by `f`, the downsampling factor, `Z`, the discrete codebook size, and `d`, the model embedding size.
 
 | Model | LPIPS | OCR SIM   |FID           | SSIM    | Link                                                                                                                                                  | Config              |
 |-----------------|------------|-------|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
@@ -264,3 +264,6 @@ We provide quantitative and qualitative results of our model, and links to downl
     primaryClass = {cs.CV}
 }
 ```
+
+## Contact
+Juan A. Rodríguez (joanrg.ai@gmail.com). **We are looking for collaborators!** so don't hesitate to ask us about the project.
