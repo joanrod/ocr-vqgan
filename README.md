@@ -227,7 +227,7 @@ python generate_qualitative_results.py --test_dataset dir_original__samples\
 ### Results and models
 We provide quantitative and qualitative results of our model, and links to download. Config files in yaml format are available at `configs`. The model is defined by `f`, the downsampling factor, `Z`, the discrete codebook size, and `d`, the model embedding size.
 
-| Model | LPIPS | OCR-SIM   |FID           | SSIM    | Link                                                                                                                                                  | Config              |
+| Model | LPIPS | OCR SIM   |FID           | SSIM    | Link                                                                                                                                                  | Config              |
 |-------------------------|------------|----------------|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
 | f=16, Z=16384, d=256   | 0.08 | 0.45 | 2.02 | 0.77 | [download](https://zenodo.org/record/7299220/files/ocr-vqgan-f16-c16384-d256.zip?download=1) | configs/ocr-vqgan-f16-c16384-d256.yaml |
 
