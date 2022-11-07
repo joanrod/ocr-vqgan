@@ -1,0 +1,63 @@
+model:
+  base_learning_rate: 4.5e-04
+  target: taming.models.vqgan.VQModel
+  params:
+    embed_dim: 256
+    n_embed: 16384
+    ddconfig:
+      double_z: false
+      z_channels: 256
+      resolution: 256
+      in_channels: 3
+      out_ch: 3
+      ch: 128
+      ch_mult:
+      - 1
+      - 1
+      - 2
+      - 2
+      - 4
+      num_res_blocks: 2
+      attn_resolutions:
+      - 16
+      dropout: 0.0
+    lossconfig:
+      target: taming.modules.losses.vqperceptual.VQLPIPSWithDiscriminatorOCR
+      params:
+        disc_conditional: false
+        disc_in_channels: 3
+        disc_start: 50000
+        disc_weight: 0.75
+        disc_num_layers: 2
+        codebook_weight: 1.0
+
+        perceptual_weight: 0.3
+        ocr_perceptual_weight: 0.7
+
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 1
+    num_workers: 12
+    train:
+      target: taming.data.custom.CustomTrain
+      params:
+        training_images_list_file: /Paper2Fig100k/paper2fig1_img_train.txt
+        size: 384
+        random_crop: True
+        augment: True
+    validation:
+      target: taming.data.custom.CustomTest
+      params:
+        test_images_list_file: /Paper2Fig100k/paper2fig1_img_test.txt
+        size: 384
+        random_crop: False
+        augment: False
+    test:
+      target: taming.data.custom.CustomTest
+      params:
+        test_images_list_file: /Paper2Fig100k/paper2fig1_img_test.txt
+        size: 384
+        random_crop: False
+        augment: False

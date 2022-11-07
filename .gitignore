@@ -1,0 +1,16 @@
+logs/*
+test_*
+.git
+__pycache__/*
+*__pycache__/
+*.egg-info/
+ckpts/*
+taming/__pycache__/
+taming/data/__pycache__/
+taming/models/__pycache__/
+taming_transformers.egg-info/
+output/*
+lightning_logs/*
+scripts/taming/*
+taming/modules/autoencoder/lpips/vgg.pth
+taming/modules/autoencoder/ocr_perceptual/craft_mlt_25k.pth
