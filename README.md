@@ -84,8 +84,8 @@ We train our models using Paper2Fig100k dataset, that can be downloaded [here](h
 ```
 📂Paper2Fig100k/
 ├── 📂figures
-│   ├── 📜1001.1968v1-Figure1-1.png
-│   ├── 📜1001.1988v1-Figure1-1.png
+│   ├── 🖼️1001.1968v1-Figure1-1.png
+│   ├── 🖼️1001.1988v1-Figure1-1.png
 │   ├── ...
 ├── 📜paper2fig_train.json
 ├── 📜paper2fig_test.json
@@ -228,7 +228,7 @@ python generate_qualitative_results.py --test_dataset dir_original__samples\
 We provide quantitative and qualitative results of our model, and links to download. Config files in yaml format are available at `configs`. The model is defined by `f`, the downsampling factor, `Z`, the discrete codebook size, and `d`, the model embedding size.
 
 | Model | LPIPS | OCR SIM   |FID           | SSIM    | Link                                                                                                                                                  | Config              |
-|-------------------------|------------|----------------|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+|-----------------|------------|-------|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
 | f=16, Z=16384, d=256   | 0.08 | 0.45 | 2.02 | 0.77 | [download](https://zenodo.org/record/7299220/files/ocr-vqgan-f16-c16384-d256.zip?download=1) | configs/ocr-vqgan-f16-c16384-d256.yaml |
 
 ------------------------
