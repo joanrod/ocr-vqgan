@@ -78,7 +78,7 @@ Our OCR-VQGAN method uses OCR perceptual loss as an additional term in the overa
 
 ## Training OCR-VQGANs
 
-Logs and checkpoints for experiments are saved into a `logs` directory. By default, this directory will be created inside the project, but we recommend passing the argument `-l dir_path` with a path where you have sufficient disck space. 
+Logs and checkpoints for experiments are saved into a `logs` directory. By default, this directory will be created inside the project, but we recommend passing the argument `-l dir_path` with a path where you have sufficient disk space. 
 
 ### Download Paper2Fig100k dataset
 
@@ -95,14 +95,14 @@ We train our models using Paper2Fig100k dataset, that can be downloaded [here](h
 
 ```
 
-The directory `figures` contain all images in the dataset, and the train and test JSON files define the metadata about each figure (id, captions, etc.). Run the following command to prepare Paper2Figure samples for the OCR-VQGAN training:
+The directory `figures` contains all images in the dataset, and the train and test JSON files define data about each figure (id, captions, etc.). Run the following command to prepare Paper2Figure100k samples for the OCR-VQGAN training:
 
 ```bash
 python scripts/parse_paper2fig1_img_to_VQGAN.py --path <path_Paper2Fig100k_root>
 ```
 
 ### Download ICDAR 13
-We also use ICDAR 13 to evaluate OCR-VQGAN. [Download ICDAR13 dataset](https://rrc.cvc.uab.es/?ch=2&com=downloads)(train and test sets). Create a root directory `ICDAR13` and add both downloaded sets.
+We also use ICDAR13 to evaluate OCR-VQGAN. [Download ICDAR13 dataset](https://rrc.cvc.uab.es/?ch=2&com=downloads)(train and test sets). Create a root directory `ICDAR13` and add both downloaded sets.
 
 ```
 📂ICDAR13/
@@ -110,7 +110,7 @@ We also use ICDAR 13 to evaluate OCR-VQGAN. [Download ICDAR13 dataset](https://r
 ├── 📂Challenge2_Training_Task12_Images
 ```
 
-Run the following command to prepare images for evaluation with OCR-VQGAN.
+Run the following command to prepare images for evaluation of ICDAR13 with OCR-VQGAN.
 
 ```bash
 python scripts/parse_ICDAR2013_img_to_VQGAN.py --path <path_ICDAR13_dataset>
@@ -122,9 +122,9 @@ This will create a .txt file with the paths of the images in ICDAR13 (we unify b
 
 ### Training OCR-VQGAN from scratch 
 
-Create a new configuration for your model using a `config.yaml` file, or use one from the folder `configs`. Using these as `--base` will create new experiment directory using base configurations, to store checkpoints and configs. 
+Create a new configuration for your model using a `config.yaml` file, or use one from the folder `configs`. Using the config file with the argument `--base` will create new experiment directory using the defined base configuration, to store checkpoints and configs. 
 
-You need to modify the `training_images_list_file` and `test_images_list_file` `inside the config.yaml` file (inside `data`), to point at the .txt files that contain paths to images:
+You need to modify the `training_images_list_file` and `test_images_list_file` inside the `config.yaml` file (inside `data`), to point at the .txt files that contain paths to images:
 ```yaml
 data:
   target: main.DataModuleFromConfig
@@ -147,7 +147,7 @@ data:
         ...
 ```
 
-Then run the following command to start training. You mey need to [configure wandb](https://docs.wandb.ai/quickstart):
+Then run the following command to start training. You may need to [configure wandb](https://docs.wandb.ai/quickstart):
 
 ```bash
 python main.py --base configs/<config_spec>.yaml --logdir path_to_logdir -t --gpus 0, -p <project_name>
@@ -156,7 +156,7 @@ python main.py --base configs/<config_spec>.yaml --logdir path_to_logdir -t --gp
 
 ### Fine-tuning pre-trained VQGANs with Paper2Fig100k 🚀
 
-You can also start with VQGAN pre-trained weights and fine-tune the model with Figures from PaperFig100k. There are are several VQGAN pre-trained models in [this model zoo](https://github.com/CompVis/latent-diffusion#model-zoo). For instance, we will resume from `vqgan_imagenet_16384` model available [here](https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/). The steps are the following:
+You can also start with VQGAN pre-trained weights and fine-tune the model with figures from PaperFig100k. There are are several VQGAN pre-trained models in [this model zoo](https://github.com/CompVis/latent-diffusion#model-zoo). For instance, we will resume from `vqgan_imagenet_16384` model available [here](https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/). The steps are the following:
 
   1. Create a directory for the new experiment. Create the `configs` and `checkpoints` directories, and add the `ocr-vqgan/configs/ocr-vqgan-imagenet-16384.yaml` and `last.ckpt` as,
    
@@ -179,17 +179,18 @@ You can also start with VQGAN pre-trained weights and fine-tune the model with F
   python main.py -r <path>/model.ckpt -t --gpus 0,
   ```
 
->NOTE: The first time that the training is executed, it will crash because the OCR weights are not in the pre-trained model. However, during the crash, it will update the `last.ckpt` checkpoint inside `checkpoints`. The nest run will use that checkpoint and will work fine.
+>NOTE: The first time that the training is executed, it will crash because the OCR weights are not in the pre-trained model. However, during the crash, it will update the `last.ckpt` checkpoint inside `checkpoints`. The next run will use that checkpoint and will work fine.
 ---------------------------
 
 ## Evaluation of OCR-VQGAN 
 
-The evaluation of OCR-VQGAN consists in computing quantitative metrics for **LPIPS** and **OCR Similarity** (Check the proposed metric in the [paper](https://arxiv.org/abs/2210.11248)) in a test epoch. This process also stores reconstructions in a `evaluation` directory.
+The evaluation of OCR-VQGAN consists in computing quantitative metrics for **LPIPS** and **OCR Similarity** during inference (Check the proposed metric in the [paper](https://arxiv.org/abs/2210.11248)) in a test epoch. This process also stores reconstructions in a `evaluation` directory.
 
 ```bash
 python main.py -r dir_model --gpus 0
 ```
 ### Computing FID, SSIM and Qualitative results
+We also compute FID and SSIM of the generated images with respect to the inputs. Both operations are done over the complete sets (after the test epoch performed in the past step)
 
 #### Prepare test images
 Before computing FID and SSIM metrics, we need to process test samples so that they are all inside a directory and center-cropped.
@@ -198,10 +199,10 @@ Before computing FID and SSIM metrics, we need to process test samples so that t
 python prepare_eval_samples.py --image_txt_path <path to txt file> --store_path <path_output_dir>
 ```
 
-where `--image_txt_path` indicates here the txt file is located and `--store_path` defines the folder to store results.
-#### Compute FID
+where `--image_txt_path` indicates where the txt file is located and `--store_path` defines the folder to store results.
 
-FID is a metric to measure the similarity of two sets of images in terms of their data distribution. It is computed using full batches of images, not one by one. FID extracts InceptionV3 features of all the images, and computes the similarity using the mean and stdv of features. We use [torch-fidelity](https://github.com/toshas/torch-fidelity) library to compute FID between the sets defined by `--input1` and `--input2`.
+#### Compute FID
+FID is a metric to measure the similarity of two sets of images in terms of their data distribution. It is computed using full batches of images, not one by one. FID extracts InceptionV3 features of all the images, and computes the similarity using the mean and stdv of the deep features. We use [torch-fidelity](https://github.com/toshas/torch-fidelity) library to compute FID between the two sets defined by `--input1` and `--input2`.
 
 ```bash
 pip install torch-fidelity #should be already installed
@@ -217,7 +218,7 @@ python --input1 test_samples_dir --input2 evaluation_samples_dir
 >This script does not use GPU, but we use multiprocessing to accelerate the computation. For 20k images, and 32 CPU cores it takes around 7 minutes.
 
 #### Extract qualitative results
-Extract random validation samples from different models (qualitatively evaluate the same sample from different methods).
+Extract random validation samples from different models (i.e. qualitatively evaluate the same sample generation from different methods).
 ```bash
 python generate_qualitative_results.py --test_dataset dir_original__samples\
                  --VQGAN_pretrained dir_VQVAE_samples\
