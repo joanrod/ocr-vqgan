@@ -14,8 +14,11 @@
 [ÉTS Montreal, University of Québec](https://www.etsmtl.ca/)
 
 ------------------
+OCR-VQGAN is an image encoder designed to generate images that display clear and readable text. We propose to add an **OCR perceptual loss** term to the overall VQGAN loss, that encourages the learned discrete latent space to encode text patterns (i.e. learn rich latent representations to decode clear text-within-images). 
 
-We leverage VQGAN's image encoder in a novel domain of images of figures and diagrams. We make use of the [**Paper2Fig100k dataset**](https://zenodo.com/). This code is adapted from **VQGAN** at [CompVis/taming-transformers](https://github.com/CompVis/taming-transformers), and [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion), where we add an OCR Perceptual loss term to impose learning rich latent representations where text, lines or arrows are important. The OCR detector is the **CRAFT** model from [clovaai/CRAFT-pytorch](https://github.com/clovaai/CRAFT-pytorch).
+We experiment with OCR-VQGAN in and a novel dataset of images of figures and diagrams from research papers, called [**Paper2Fig100k dataset**](https://zenodo.org/record/7299423#.Y2lzonbMKUl). We find that using OCR-VQGAN to encode images in Paper2Fig100k results in much better figure reconstructions.
+
+This code is adapted from **VQGAN** at [CompVis/taming-transformers](https://github.com/CompVis/taming-transformers), and [CompVis/stable-diffusion](https://github.com/CompVis/stable-diffusion). The OCR detector model used in OCR Perceptual loss is the **CRAFT** model from [clovaai/CRAFT-pytorch](https://github.com/clovaai/CRAFT-pytorch).
 
 <p align="center">
   <a href="https://arxiv.org/abs/2209.xxxx"><img src="assets/ocr_v2.png" alt="comparison" width="600" border="0"></a>
@@ -266,4 +269,4 @@ We provide quantitative and qualitative results of our model, and [links to down
 ```
 
 ## Contact
-Juan A. Rodríguez (joanrg.ai@gmail.com). **We are looking for collaborators!** so don't hesitate to ask us about the project.
+Juan A. Rodríguez (joanrg.ai@gmail.com). **We welcome collaborators!** so don't hesitate to ask us about the project.
