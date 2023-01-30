@@ -258,14 +258,14 @@ We provide quantitative and qualitative results of our model, and [links to down
 -----------------
 
 ## Citation
+If you use this code please cite the following paper:
 ```bibtex
-@misc{rodriguez2022ocrvqgan,
-    title   = {OCR-VQGAN: Taming Text-within-Image Generation}, 
-    author  = {Rodriguez, Juan A. and Vazquez, David and Laradji, Issam and Pedersoli, Marco and Rodriguez, Pau},
-    year    = {2022},
-    eprint  = {2210.11248},
-    archivePrefix = {arXiv},
-    primaryClass = {cs.CV}
+@inproceedings{rodriguez2023ocr,
+  title={OCR-VQGAN: Taming Text-within-Image Generation},
+  author={Rodriguez, Juan A and Vazquez, David and Laradji, Issam and Pedersoli, Marco and Rodriguez, Pau},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+  pages={3689--3698},
+  year={2023}
 }
 ```
 
